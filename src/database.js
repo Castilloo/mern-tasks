@@ -3,9 +3,13 @@ require('dotenv').config();
 
 const PORT = process.env.MONGOPORT,
     HOST = process.env.MONGOHOST,
-    DB = process.env.MONGODB;
+    DB = process.env.MONGODB,
+    USER = process.env.MONGOUSER,
+    PASSWD = process.env.MONGOPASSWORD;
 
-const URI = `mongodb://${HOST}:${PORT}/${DB}`;
+const URI = (USER && PASSWD) 
+                ? `mongodb://${USER}:${PASSWD}@${HOST}:${PORT}` 
+                : `mongodb://${HOST}:${PORT}/${DB}`;
 // console.log(process.env);
 
 mongoose.connect(URI)
